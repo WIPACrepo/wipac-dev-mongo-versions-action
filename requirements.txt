@@ -1,0 +1,3 @@
+wipac-dev-tools[semver]==1.16.7
+typing-extensions
+requests
