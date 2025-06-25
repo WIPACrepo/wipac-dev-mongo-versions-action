@@ -5,18 +5,14 @@ This GitHub Action generates a build matrix of MongoDB versions by querying the 
 It produces a list of `X.Y` version strings that can be used in GitHub Actions matrix builds.  
 The action supports filtering by minimum/maximum version, excluding specific versions, and optionally omitting all prerelease (RC) versions.
 
----
-
 ## 📥 Inputs
 
 | Name               | Required | Default | Description |
 |--------------------|----------|---------|-------------|
-| `mongo_exclude`    | ❌       | *(none)* | Comma-separated list of versions to exclude, e.g., `5.0,6.0`. |
+| `mongo_exclude`    | ❌       | *(empty list)* | Comma-separated list of versions to exclude, e.g., `5.0,6.0`. |
 | `mongo_max`        | ❌       | *latest available* | Maximum MongoDB version to include (inclusive), e.g., `7.0`. |
 | `mongo_min`        | ❌       | `4.0`   | Minimum MongoDB version to include (inclusive), e.g., `5.0`. |
-| `omit_prerelease`  | ❌       | *(not set)* | If set (to any value), **exclude all prerelease (RC) versions**, including the latest. |
-
----
+| `omit_prerelease`  | ❌       | `false` | If set `true`, **exclude all prerelease (RC) versions**, including the latest. |
 
 ## 📤 Output
 
@@ -27,8 +23,6 @@ The action supports filtering by minimum/maximum version, excluding specific ver
 Example output:
 
     ["5.0", "5.1", "6.0", "7.0", "8.0"]
-
-----
 
 ## 💡 Example Usage
 
@@ -64,8 +58,6 @@ Here's an example how you might use this action in your project's workflow:
           - name: Run tests
             run: |
               echo "Testing with MongoDB version ${{ matrix.mongo }}"
-
-----
 
 ## 🛠 Implementation Notes
 
