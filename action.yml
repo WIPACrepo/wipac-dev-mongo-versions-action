@@ -32,11 +32,13 @@ runs:
 
         python3 -m venv action_venv
         . action_venv/bin/activate
-        pip install requests packaging
+        pip3 install --upgrade pip
+        pip3 install -r ${{ github.action_path }}/requirements.txt
 
-        export GHA_INPUT_MIN="${{ inputs.mongo_min }}"
-        export GHA_INPUT_MAX="${{ inputs.mongo_max }}"
         export GHA_INPUT_EXCLUDE="${{ inputs.mongo_exclude }}"
+        export GHA_INPUT_MAX="${{ inputs.mongo_max }}"
+        export GHA_INPUT_MIN="${{ inputs.mongo_min }}"
+        export GHA_INPUT_OMIT_RC="${{ inputs.omit_prerelease }}"
 
         MATRIX=$( "${{ github.action_path }}/generate_matrix.py" )
         echo "matrix=$MATRIX" >> "$GITHUB_OUTPUT"
