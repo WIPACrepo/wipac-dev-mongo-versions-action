@@ -54,14 +54,14 @@ for v in parsed_versions:
 if latest_rc:
     key = f"{latest_rc.major}.{latest_rc.minor}"
     if key not in grouped:
-        grouped[key] = latest_rc
+        grouped[latest_rc] = latest_rc
 
 # Determine max_v
 max_v = Version(max_v_raw) if max_v_raw else max(grouped.values())
 
 # Final filter
 filtered = [
-    v for key, v in sorted(grouped.items(), key=lambda x: Version(x[0]))
+    str(key) for key, v in sorted(grouped.items(), key=lambda x: Version(x[0]))
     if min_v <= Version(key) <= max_v and key not in exclude
 ]
 
