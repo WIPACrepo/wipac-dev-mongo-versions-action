@@ -6,6 +6,7 @@ from packaging.version import Version, InvalidVersion
 import requests
 import time
 
+omit_rc = os.getenv("GHA_INPUT_OMIT_RC")
 min_v = Version(os.getenv("GHA_INPUT_MIN") or "4.0")
 max_v_raw = os.getenv("GHA_INPUT_MAX")
 exclude = {v.strip() for v in os.getenv("GHA_INPUT_EXCLUDE", "").split(",") if v.strip()}
@@ -51,7 +52,7 @@ for v in parsed_versions:
         grouped[key] = v
 
 # Add latest prerelease, if not already included
-if latest_rc:
+if latest_rc and omit_rc is None:
     key = f"{latest_rc.major}.{latest_rc.minor}"
     if key not in grouped:
         grouped[latest_rc] = latest_rc
