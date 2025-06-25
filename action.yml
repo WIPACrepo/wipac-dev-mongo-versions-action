@@ -32,7 +32,7 @@ runs:
 
         python3 -m venv action_venv
         . action_venv/bin/activate
-        pip install requests packaging
+        pip install -r requirements.txt
 
         export GHA_INPUT_MIN="${{ inputs.mongo_min }}"
         export GHA_INPUT_MAX="${{ inputs.mongo_max }}"

@@ -37,11 +37,18 @@ latest_rc = None
 
 for v in parsed_versions:
     key = f"{v.major}.{v.minor}"
+
     if v.is_prerelease:
         if latest_rc is None or v > latest_rc:
             latest_rc = v
         continue
-    grouped[key] = v
+
+    if key not in grouped:
+        grouped[key] = v
+        continue
+
+    if v > grouped[key]:
+        grouped[key] = v
 
 # Add latest prerelease, if not already included
 if latest_rc:
@@ -54,7 +61,7 @@ max_v = Version(max_v_raw) if max_v_raw else max(grouped.values())
 
 # Final filter
 filtered = [
-    key for key, v in sorted(grouped.items(), key=lambda x: Version(x[0]))
+    v for key, v in sorted(grouped.items(), key=lambda x: Version(x[0]))
     if min_v <= Version(key) <= max_v and key not in exclude
 ]
 
