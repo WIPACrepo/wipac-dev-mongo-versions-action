@@ -40,7 +40,7 @@ runs:
         export GHA_INPUT_MIN="${{ inputs.mongo_min }}"
         export GHA_INPUT_OMIT_RC="${{ inputs.omit_prerelease }}"
 
-        MATRIX=$( "${{ github.action_path }}/generate_matrix.py" )
+        MATRIX=$( "${{ github.action_path }}/generate_matrix_offline.py" )
         echo "matrix=$MATRIX" >> "$GITHUB_OUTPUT"
 
       shell: bash
